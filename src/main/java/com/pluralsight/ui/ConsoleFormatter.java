@@ -1,5 +1,6 @@
 package com.pluralsight.ui;
 
+import com.pluralsight.model.transaction.Transaction;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -17,7 +18,6 @@ public class ConsoleFormatter {
 	public static void displayDivider(int width) {
 		System.out.println("-".repeat(width));
 	}
-
 
 	public static void displayReceipt(String lineItemCategory, String lineItemName, String lineItemSubName, int quantity, double totalPrice) {
 		int width = 50;
@@ -45,7 +45,6 @@ public class ConsoleFormatter {
 		System.out.println("=".repeat(width));
 	}
 
-
 	public static void displayReceiptItemCategoryDivider(String lineItemCategory, int width) {
 		System.out.println("-".repeat(width));
 		System.out.println(lineItemCategory);
@@ -54,11 +53,12 @@ public class ConsoleFormatter {
 
 	public static void displayChceckOutSummary(String lineItemCategory, String lineItemName, String lineItemSubName, int quantity, double totalPrice) {
 		int width = 50;
+		int receiptId = 9999;
 
 		displayHeader("ORCACHE TRANSIT POS", width);
 		System.out.println("Receipt ID: " + receiptId);
-		System.out.println("Date: " + date);
-		System.out.println("Time: " + time);
+//		System.out.println("Date: " + transaction.getDate());
+//		System.out.println("Time: " + transaction.getTime());
 		System.out.println();
 
 		displayReceiptItemCategoryDivider(lineItemCategory, width);

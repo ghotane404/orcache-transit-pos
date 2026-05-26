@@ -1,11 +1,9 @@
 package com.pluralsight.ui;
 
-import com.pluralsight.model.option.BaseTransitServiceType;
-import com.pluralsight.model.option.LineItemCategory;
-import com.pluralsight.model.option.RiderCategory;
-import com.pluralsight.model.option.TransitPassAddOn;
+import com.pluralsight.model.option.*;
+import com.pluralsight.model.product.BaseTransitSetvice;
 import com.pluralsight.model.transaction.TransactionLineItem;
-import com.pluralsight.service.FareCalculationService;
+import com.pluralsight.service.TransitPricingModel;
 
 import java.util.*;
 
@@ -36,6 +34,8 @@ public class ConsoleMenu {
 	}
 
 	public static void displayOrderMenu() {
+		BaseTransitSetvice bts = new BaseTransitSetvice();
+
 		while (true){
 			ConsoleFormatter.displayHeader("ORDER SCREEN" , width);
 
@@ -50,7 +50,7 @@ public class ConsoleMenu {
 			String userInput = scanner.nextLine();
 
 			switch (userInput) {
-				case "1" -> displayBaseTransitServiceType();
+				case "1" -> bts.displayBaseTransitServiceType(width);
 				case "2"  -> displayEPurseTopUp();
 				case "3"  -> displayRetailItem();
 				case "4"  -> displayCurrentOrder();
@@ -64,76 +64,76 @@ public class ConsoleMenu {
 		}
 	}
 
-	public static void displayBaseTransitServiceType() {
-		while (true) {
-			ConsoleFormatter.displayHeader("SELECT BASE TRANSIT SERVICE", width);
-			System.out.println("1. Metro Bus");
-			System.out.println("2. Link Light Rail");
-			System.out.println("3. Rapid Ride");
-			System.out.println("4. Sound Transit Express Bus");
-			System.out.println("0. Return to Order Screen");
-			ConsoleFormatter.displayDivider(width);
-			System.out.print("Select an option: ");
-			String userInput = scanner.nextLine();
-			switch (userInput) {
-				case "1" -> {
-					riderCategory(BaseTransitServiceType.METRO_BUS);
-					return;
-				}
-				case "2" -> {
-					riderCategory(BaseTransitServiceType.LINK_LIGHT_RAIL);
-					return;
-				}
-				case "3" -> {
-					riderCategory(BaseTransitServiceType.RAPID_RIDE);
-					return;
-				}
-				case "4" -> {
-					riderCategory(BaseTransitServiceType.SOUND_TRANSIT_EXPRESS_BUS);
-					return;
-				}
-				case "0" -> {
-					System.out.println("Returning to Order Screen.");
-					return;
-				}
-				default -> System.out.println("Invalid option.");
-			}
-		}
-	}
+//	public static void displayBaseTransitServiceType() {
+//		while (true) {
+//			ConsoleFormatter.displayHeader("SELECT BASE TRANSIT SERVICE", width);
+//			System.out.println("1. Metro Bus");
+//			System.out.println("2. Link Light Rail");
+//			System.out.println("3. Rapid Ride");
+//			System.out.println("4. Sound Transit Express Bus");
+//			System.out.println("0. Return to Order Screen");
+//			ConsoleFormatter.displayDivider(width);
+//			System.out.print("Select an option: ");
+//			String userInput = scanner.nextLine();
+//			switch (userInput) {
+//				case "1" -> {
+//					displayRiderCategory(BaseTransitServiceType.METRO_BUS);
+//					return;
+//				}
+//				case "2" -> {
+//					displayRiderCategory(BaseTransitServiceType.LINK_LIGHT_RAIL);
+//					return;
+//				}
+//				case "3" -> {
+//					displayRiderCategory(BaseTransitServiceType.RAPID_RIDE);
+//					return;
+//				}
+//				case "4" -> {
+//					displayRiderCategory(BaseTransitServiceType.SOUND_TRANSIT_EXPRESS_BUS);
+//					return;
+//				}
+//				case "0" -> {
+//					System.out.println("Returning to Order Screen.");
+//					return;
+//				}
+//				default -> System.out.println("Invalid option.");
+//			}
+//		}
+//	}
 
-	public static void riderCategory(BaseTransitServiceType selectedBaseTransitServiceType) {
-		while (true) {
-			ConsoleFormatter.displayHeader("SELECT RIDER CATEGORY", width);
-			System.out.println("1. Adult      $3.00 base fare");
-			System.out.println("2. Senior    $1.00 base fare");
-			System.out.println("3. Youth     $2.00 base fare");
-			System.out.println("0. Return to Base Transit Service");
-			ConsoleFormatter.displayDivider(width);
-			System.out.print("Please select rider type: ");
-			String userInput = scanner.nextLine();
-			switch (userInput) {
-				case "1" -> {
-					transitPassAddOn(RiderCategory.ADULT, selectedBaseTransitServiceType);
-					return;
-				}
-				case "2" -> {
-					transitPassAddOn(RiderCategory.SENIOR, selectedBaseTransitServiceType);
-					return;
-				}
-				case "3" -> {
-					transitPassAddOn(RiderCategory.YOUTH, selectedBaseTransitServiceType);
-					return;
-				}
-				case "0" -> {
-					System.out.println("Returning to Base Transit Service.");
-					return;
-				}
-				default -> System.out.println("Invalid option.");
-			}
-		}
-	}
+//	public static void displayRiderCategory(BaseTransitServiceType selectedBaseTransitServiceType) {
+//		while (true) {
+//			ConsoleFormatter.displayHeader("SELECT RIDER CATEGORY", width);
+//			System.out.println("1. Adult      $3.00 base fare");
+//			System.out.println("2. Senior    $1.00 base fare");
+//			System.out.println("3. Youth     $2.00 base fare");
+//			System.out.println("0. Return to Base Transit Service");
+//			ConsoleFormatter.displayDivider(width);
+//			System.out.print("Please select rider type: ");
+//			String userInput = scanner.nextLine();
+//			switch (userInput) {
+//				case "1" -> {
+//					displayTransitPassAddOnMenu(RiderCategory.ADULT, selectedBaseTransitServiceType);
+//					return;
+//				}
+//				case "2" -> {
+//					displayTransitPassAddOnMenu(RiderCategory.SENIOR, selectedBaseTransitServiceType);
+//					return;
+//				}
+//				case "3" -> {
+//					displayTransitPassAddOnMenu(RiderCategory.YOUTH, selectedBaseTransitServiceType);
+//					return;
+//				}
+//				case "0" -> {
+//					System.out.println("Returning to Base Transit Service.");
+//					return;
+//				}
+//				default -> System.out.println("Invalid option.");
+//			}
+//		}
+//	}
 
-	public static void transitPassAddOn(RiderCategory selectedRiderCategory, BaseTransitServiceType selectedBaseTransitServiceType) {
+	public static void displayTransitPassAddOnMenu(RiderCategory selectedRiderCategory, BaseTransitServiceType selectedBaseTransitServiceType) {
 		while(true){
 			ConsoleFormatter.displayHeader("SELECT TRANSIT PASS ADD-ON" , width);
 
@@ -147,15 +147,15 @@ public class ConsoleMenu {
 
 			switch (userInput) {
 				case "1" -> {
-					printTransitCardSummary(selectedRiderCategory, selectedBaseTransitServiceType, TransitPassAddOn.ALL_DAY_PASS);
+					printTransitCartSummary(selectedRiderCategory, selectedBaseTransitServiceType, TransitPassAddOn.ALL_DAY_PASS);
 					return;
 				}
 				case "2"-> {
-					printTransitCardSummary(selectedRiderCategory, selectedBaseTransitServiceType,  TransitPassAddOn.MONTHLY_PASS);
+					printTransitCartSummary(selectedRiderCategory, selectedBaseTransitServiceType,  TransitPassAddOn.MONTHLY_PASS);
 					return;
 				}
 				case "3" -> {
-					printTransitCardSummary(selectedRiderCategory, selectedBaseTransitServiceType, TransitPassAddOn.E_PURSE);
+					printTransitCartSummary(selectedRiderCategory, selectedBaseTransitServiceType, TransitPassAddOn.E_PURSE);
 					return;
 				}
 				case "0" ->{
@@ -184,35 +184,40 @@ public class ConsoleMenu {
 
 	private static void displayEPurseTopUp() {
 		while (true){
-			ConsoleFormatter.displayHeader("SELECT RETAIL ITEM" , width);
+			ConsoleFormatter.displayHeader("SELECT E-PURSE TOP-UP" , width);
 
-			System.out.println("1. Stuff 1");
-			System.out.println("2. Stuff 2");
-			System.out.println("3. Stuff 3");
-			System.out.println("0. Return to Order Screen");
+			System.out.println("1. $10 E-Purse Top-Up");
+			System.out.println("2. $25 E-Purse Top-Up");
+			System.out.println("3. $50 E-Purse Top-Up");
+			System.out.println("4. $100 E-Purse Top-Up");
+			System.out.println("0. Cancel");
 			ConsoleFormatter.displayDivider(width);
 			System.out.print("Select an option: ");
 			String userInput = scanner.nextLine();
 
-//			switch (userInput) {
-//				case "1" -> {
-//
-//					return;
-//				}
-//				case "2"  -> {
-//
-//					return;
-//				}
-//				case "3"  -> {
-//
-//					return;
-//				}
-//				case "0" -> {
-//
-//					return;
-//				}
-//				default -> System.out.println("Invalid option.");
-//			}
+			switch (userInput) {
+				case "1" -> {
+					System.out.println("$10 E-Purse Top-Up");
+					return;
+				}
+				case "2"  -> {
+					System.out.println("$25 E-Purse Top-Up");
+					return;
+				}
+				case "3"  -> {
+					System.out.println("$50 E-Purse Top-Up");
+					return;
+				}
+				case "4"  -> {
+					System.out.println("$100 E-Purse Top-Up");
+					return;
+				}
+				case "0" -> {
+					System.out.println("Returning back to previous menu.");
+					return;
+				}
+				default -> System.out.println("Invalid option.");
+			}
 		}
 	}
 
@@ -220,54 +225,59 @@ public class ConsoleMenu {
 		while (true){
 			ConsoleFormatter.displayHeader("SELECT RETAIL ITEM" , width);
 
-			System.out.println("1. Stuff 1");
-			System.out.println("2. Stuff 2");
-			System.out.println("3. Stuff 3");
+			System.out.println("1. Transit Card Wallet");
+			System.out.println("2. RFID-Blocking Sleeve");
+			System.out.println("3. Protective Card Sleeve");
+			System.out.println("4. Lanyard with Safety Breakaway");
 			System.out.println("0. Return to Order Screen");
 			ConsoleFormatter.displayDivider(width);
 			System.out.print("Select an option: ");
 			String userInput = scanner.nextLine();
 
-//			switch (userInput) {
-//				case "1" -> {
-//
-//					return;
-//				}
-//				case "2"  -> {
-//
-//					return;
-//				}
-//				case "3"  -> {
-//
-//					return;
-//				}
-//				case "0" -> {
-//
-//					return;
-//				}
-//				default -> System.out.println("Invalid option.");
-//			}
+			switch (userInput) {
+				case "1" -> {
+					System.out.println("Transit Card Wallet");
+					return;
+				}
+				case "2"  -> {
+					System.out.println("RFID-Blocking Sleeve");
+					return;
+				}
+				case "3"  -> {
+					System.out.println("Protective Card Sleeve");
+					return;
+				}
+				case "0" -> {
+					System.out.println("Returning back to previous menu.");
+					return;
+				}
+				default -> System.out.println("Invalid option.");
+			}
 		}
 	}
 
-	public static void printTransitCardSummary(RiderCategory selectedRiderCategory, BaseTransitServiceType selectedBaseTransitServiceType, TransitPassAddOn selectedTransitPassAddOn){
-		int quantity = 1;
-		double unitPrice = FareCalculationService.calculateTransitCardTotal(selectedTransitPassAddOn,  selectedRiderCategory);
-		double totalPrice = unitPrice * quantity;
+	public static void printTransitCartSummary(RiderCategory selectedRiderCategory, BaseTransitServiceType selectedBaseTransitServiceType, TransitPassAddOn selectedTransitPassAddOn){
+		double baseTransitPrice = TransitPricingModel.getBaseTransitPrice(
+				selectedBaseTransitServiceType, selectedRiderCategory);
+		double addOnTransitPrice = TransitPricingModel.getAddOnTransitPrice(
+				selectedTransitPassAddOn, selectedRiderCategory);
+		double unitPrice = TransitPricingModel.calculateTransitCartTotal(
+				selectedBaseTransitServiceType,
+				selectedTransitPassAddOn,
+				selectedRiderCategory);
 
-		String lineItemName = (selectedBaseTransitServiceType.getDisplayName()
-				+ " - "
+		double totalPrice = baseTransitPrice + addOnTransitPrice;
+		int quantity = 1;
+
+		String lineItemName = (selectedBaseTransitServiceType.getDisplayName() + " - "
 				+ selectedRiderCategory.getDisplayName());
 
 		TransactionLineItem currentOrderItem = new TransactionLineItem(
-				LineItemCategory.TRANSIT_PASS_ADD_ON.getDisplayName(),
-				lineItemName,
+				LineItemCategory.TRANSIT_PASS_ADD_ON.getDisplayName(), lineItemName,
 				selectedRiderCategory.getDisplayName(),
 				selectedBaseTransitServiceType.getDisplayName(),
 				selectedTransitPassAddOn.getDisplayName(),
-				quantity,
-				unitPrice,
-				totalPrice
+				quantity, unitPrice, totalPrice
 		);
 
 		currentOrderItems.add(currentOrderItem);
@@ -318,7 +328,7 @@ public class ConsoleMenu {
 			return;
 		}
 
-		ConsoleFormatter.displayHeader("CHCECK OUT MENU", width);
+		ConsoleFormatter.displayHeader("CHECKOUT MENU", width);
 		System.out.println("Receipt ID: " + receiptId);
 		System.out.println("Date: " + date);
 		System.out.println("Time: " + time);
@@ -346,5 +356,6 @@ public class ConsoleMenu {
 		System.out.println("=".repeat(width));
 		currentOrderItems.clear();
 	}
+
 
 }
