@@ -4,6 +4,9 @@ import com.pluralsight.model.option.BaseTransitServiceType;
 import com.pluralsight.model.option.RiderCategory;
 import com.pluralsight.model.option.TransitPassAddOn;
 
+
+//FareCalculationService
+//calculates fare prices
 public class FareCalculationService {
 	public static double getBaseFarePrice(BaseTransitServiceType serviceType, RiderCategory riderCategory) {
 		return switch (riderCategory) {

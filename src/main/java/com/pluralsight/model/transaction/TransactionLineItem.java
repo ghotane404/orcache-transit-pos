@@ -1,5 +1,6 @@
 package com.pluralsight.model.transaction;
 
+// for each product/item blah blah in the receipt
 public class TransactionLineItem {
 	private final String lineItemCategory;
 	private final String lineItemName;
@@ -53,6 +54,11 @@ public class TransactionLineItem {
 		return totalPrice;
 	}
 
-
+	public String formatForCsv(int receiptId, String date, String time) {
+		return String.format("%d|%s|%s|%s|%s|%s|%s|%s|%d|%.2f|%.2f",
+				receiptId, date, time,
+				lineItemCategory, lineItemName, riderCategory, baseTransitService, fareProduct,
+				quantity, unitPrice, totalPrice);
+	}
 
 }
