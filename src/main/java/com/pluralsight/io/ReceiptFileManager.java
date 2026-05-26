@@ -1,7 +1,6 @@
 package com.pluralsight.io;
 
 import com.pluralsight.model.transaction.Transaction;
-
 import java.io.*;
 
 public class ReceiptFileManager {
@@ -20,9 +19,6 @@ public class ReceiptFileManager {
 		}
 	}
 
-//	(yyyyMMdd-hhmmss.txt - i.e. 20230329-121523.txt)
-//	[yyyy] [MM] [dd] - [hh] [mm] [ss]
-//	2023 03 29 - 12 15 23
 
 
 }

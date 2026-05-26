@@ -4,7 +4,6 @@ import com.pluralsight.model.option.BaseTransitServiceType;
 import com.pluralsight.model.option.RiderCategory;
 import com.pluralsight.model.option.TransitPassAddOn;
 
-
 //FareCalculationService
 //calculates fare prices
 public class FareCalculationService {
