@@ -11,7 +11,9 @@ public class TransactionLineItem {
 	private final double unitPrice;
 	private final double totalPrice;
 
-	public TransactionLineItem(String lineItemCategory, String lineItemName, String riderCategory, String baseTransitService, String fareProduct, int quantity, double unitPrice, double totalPrice) {
+	public TransactionLineItem(String lineItemCategory, String lineItemName,
+	                           String riderCategory, String baseTransitService, String fareProduct,
+	                           int quantity, double unitPrice, double totalPrice) {
 		this.lineItemCategory = lineItemCategory;
 		this.lineItemName = lineItemName;
 		this.riderCategory = riderCategory;

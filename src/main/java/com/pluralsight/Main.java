@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-import com.pluralsight.ui.ConsoleMenu;
+import com.pluralsight.menus.ConsoleMenu;
 
 public class Main {
 	public static void main(String[] args) {

@@ -44,6 +44,7 @@ public class TransitPricingModel {
 				case SENIOR -> 70.00;
 				case YOUTH -> 80.00;
 			};
+			case NO_ADD_ON -> 0.00;
 		};
 	}
 

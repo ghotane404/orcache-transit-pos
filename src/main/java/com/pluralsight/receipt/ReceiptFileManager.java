@@ -1,4 +1,4 @@
-package com.pluralsight.io;
+package com.pluralsight.receipt;
 
 import com.pluralsight.model.transaction.Transaction;
 import java.io.*;
