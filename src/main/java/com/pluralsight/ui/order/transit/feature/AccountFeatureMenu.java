@@ -2,10 +2,9 @@ package com.pluralsight.ui.order.transit.feature;
 
 import com.pluralsight.model.item.AccountFeatureItem;
 import com.pluralsight.model.enums.AccountFeatureOption;
-import com.pluralsight.model.item.base.TransactionLineItem;
 import com.pluralsight.util.ConsoleFormatter;
+import com.pluralsight.util.ShoppingCart;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountFeatureMenu {
@@ -13,15 +12,21 @@ public class AccountFeatureMenu {
 	private static final Scanner scanner = new Scanner(System.in);
 	int WIDTH = 65;
 
-	public void displayAccountFeatureMenu(ArrayList<TransactionLineItem> currentOrderItems) {
+	private final ShoppingCart shoppingCart;
+
+	public AccountFeatureMenu(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
+	public void displayAccountFeatureMenu() {
 		int maxAmount = 0;
 
 		while (true) {
 			if (maxAmount >= 3) {
 				System.out.println("Maximum of 3 features reached. Press ENTER to continue.");
 				scanner.nextLine();
-				CardStyleMenu cardStyleMenu = new CardStyleMenu();
-				cardStyleMenu.displayCardStyleMenu(currentOrderItems);
+				CardStyleMenu cardStyleMenu = new CardStyleMenu(shoppingCart);
+				cardStyleMenu.displayCardStyleMenu();
 				return;
 			}
 			consoleFormatter.displayHeader("SELECT ACCOUNT FEATURES", WIDTH);
@@ -58,8 +63,8 @@ public class AccountFeatureMenu {
 				case "5" -> { selectedAccountFeatureOption = AccountFeatureOption.FARE_ALERTS; }
 				case "6" -> { selectedAccountFeatureOption = AccountFeatureOption.COMMUTER_BENEFITS_LINKING; }
 				case "7" -> {
-					CardStyleMenu cardStyleMenu = new CardStyleMenu();
-					cardStyleMenu.displayCardStyleMenu(currentOrderItems);
+					CardStyleMenu cardStyleMenu = new CardStyleMenu(shoppingCart);
+					cardStyleMenu.displayCardStyleMenu();
 					return;
 				}
 				case "0" -> {
@@ -88,7 +93,7 @@ public class AccountFeatureMenu {
 			}
 
 			AccountFeatureItem accountFeatureItem = new AccountFeatureItem(selectedAccountFeatureOption, quantity);
-			currentOrderItems.add(accountFeatureItem);
+			shoppingCart.addItem(accountFeatureItem);
 			maxAmount += quantity;
 
 			System.out.println();

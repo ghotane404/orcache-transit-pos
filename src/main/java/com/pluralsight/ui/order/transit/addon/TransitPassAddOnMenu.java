@@ -1,25 +1,34 @@
 package com.pluralsight.ui.order.transit.addon;
 
-import com.pluralsight.model.item.base.TransactionLineItem;
 import com.pluralsight.model.item.TransitPassAddOnItem;
 import com.pluralsight.model.enums.RiderType;
 import com.pluralsight.model.enums.TransitPassAddOn;
+import com.pluralsight.ui.order.transit.addon.interfaces.AddOnMenu;
+import com.pluralsight.util.ShoppingCart;
 import com.pluralsight.util.TransitPricingModel;
 import com.pluralsight.util.ConsoleFormatter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TransitPassAddOnMenu {
+public class TransitPassAddOnMenu implements AddOnMenu {
 	ConsoleFormatter consoleFormatter = new ConsoleFormatter();
 
 	private static final Scanner scanner = new Scanner(System.in);
 	int WIDTH = 65;
 
-	public void displayTransitPassAddOnMenu(RiderType selectedRiderType,  ArrayList<TransactionLineItem> currentOrderItems) {
+	private final ShoppingCart shoppingCart;
+
+	public TransitPassAddOnMenu(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
+
+	public void displayAddOnMenu(RiderType selectedRiderType) {
 		while(true) {
 			consoleFormatter.displayHeader("SELECT TRANSIT PASS ADD-ON", WIDTH);
 			consoleFormatter.displayTypeIdentifier("Rider Type: " + selectedRiderType.getDisplayName(), WIDTH);
+
 
 			System.out.println("Would you like to load additional transit pass onto this card?");
 			System.out.println("Additional passes receive 15% off.");
@@ -63,8 +72,8 @@ public class TransitPassAddOnMenu {
 					selectedTransitPassAddOn = TransitPassAddOn.SEVEN_DAY_PASS;
 				}
 				case "4" -> {
-					FerryPassAddOnMenu ferryPassAddOnMenu = new FerryPassAddOnMenu();
-					ferryPassAddOnMenu.displayFerryPassAddOnMenu(selectedRiderType, currentOrderItems);
+					FerryPassAddOnMenu ferryPassAddOnMenu = new FerryPassAddOnMenu(shoppingCart);
+					ferryPassAddOnMenu.displayFerryPassAddOnMenu(selectedRiderType);
 					return;
 				}
 				case "0" -> {
@@ -90,7 +99,7 @@ public class TransitPassAddOnMenu {
 
 			TransitPassAddOnItem transitPassAddOnItem = new TransitPassAddOnItem(selectedTransitPassAddOn, selectedRiderType,
 					quantity, unitPrice);
-			currentOrderItems.add(transitPassAddOnItem);
+			shoppingCart.addItem(transitPassAddOnItem);
 
 			System.out.println();
 			System.out.println("Added:");
@@ -102,8 +111,8 @@ public class TransitPassAddOnMenu {
 
 			scanner.nextLine();
 
-			FerryPassAddOnMenu ferryPassAddOnMenu = new FerryPassAddOnMenu();
-			ferryPassAddOnMenu.displayFerryPassAddOnMenu(selectedRiderType, currentOrderItems);
+			FerryPassAddOnMenu ferryPassAddOnMenu = new FerryPassAddOnMenu(shoppingCart);
+			ferryPassAddOnMenu.displayFerryPassAddOnMenu(selectedRiderType);
 
 			return;
 		}

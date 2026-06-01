@@ -4,6 +4,7 @@ import com.pluralsight.model.item.LimeVoucherItem;
 import com.pluralsight.model.enums.LimeDiscountVoucher;
 import com.pluralsight.model.item.base.TransactionLineItem;
 import com.pluralsight.util.ConsoleFormatter;
+import com.pluralsight.util.ShoppingCart;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,7 +14,14 @@ public class LimeVoucherMenu{
 	private static final Scanner scanner = new Scanner(System.in);
 	int WIDTH = 50;
 
-	public void displayLimeVoucherMenu(ArrayList<TransactionLineItem> currentOrderItems) {
+	private ShoppingCart shoppingCart;
+
+	public LimeVoucherMenu(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
+
+	public void displayLimeVoucherMenu() {
 		int maxAmount = 0;
 
 		while (true) {
@@ -76,7 +84,7 @@ public class LimeVoucherMenu{
 
 
 			LimeVoucherItem limeVoucherItem = new LimeVoucherItem(selectLimeDiscountVoucher, quantity);
-			currentOrderItems.add(limeVoucherItem);
+			shoppingCart.addItem(limeVoucherItem);
 			maxAmount += quantity;
 
 			System.out.println();

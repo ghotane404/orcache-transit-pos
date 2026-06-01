@@ -2,8 +2,8 @@ package com.pluralsight.ui.order.transit.feature;
 
 import com.pluralsight.model.item.CardStyleItem;
 import com.pluralsight.model.enums.CardDesignOption;
-import com.pluralsight.model.item.base.TransactionLineItem;
 import com.pluralsight.util.ConsoleFormatter;
+import com.pluralsight.util.ShoppingCart;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,15 +13,22 @@ public class CardStyleMenu {
 	private static final Scanner scanner = new Scanner(System.in);
 	int WIDTH = 50;
 
-	public void displayCardStyleMenu(ArrayList<TransactionLineItem> currentOrderItems) {
+
+	private final ShoppingCart shoppingCart;
+
+	public CardStyleMenu(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
+	public void displayCardStyleMenu() {
 		int maxAmount = 0;
 
 		while (true) {
 			if (maxAmount >= 3) {
 				System.out.println("Maximum of 3 card styles reached. Press ENTER to continue.");
 				scanner.nextLine();
-				LimeVoucherMenu limeVoucherMenu = new LimeVoucherMenu();
-				limeVoucherMenu.displayLimeVoucherMenu(currentOrderItems);
+				LimeVoucherMenu limeVoucherMenu = new LimeVoucherMenu(shoppingCart);
+				limeVoucherMenu.displayLimeVoucherMenu();
 				return;
 			}
 
@@ -51,8 +58,8 @@ public class CardStyleMenu {
 				case "2" -> { selectedCardDesignOption = CardDesignOption.SEATTLE_SKYLINE; }
 				case "3" -> { selectedCardDesignOption = CardDesignOption.FERRY_CROSSING; }
 				case "4" -> { selectedCardDesignOption = CardDesignOption.COFFEE_LINE; }
-				case "5" -> { LimeVoucherMenu limeVoucherMenu = new LimeVoucherMenu();
-					limeVoucherMenu.displayLimeVoucherMenu(currentOrderItems);
+				case "5" -> { LimeVoucherMenu limeVoucherMenu = new LimeVoucherMenu(shoppingCart);
+					limeVoucherMenu.displayLimeVoucherMenu();
 					return;
 				}
 				case "0" -> {
@@ -71,7 +78,7 @@ public class CardStyleMenu {
 			}
 
 			CardStyleItem cardStyleItem = new CardStyleItem(selectedCardDesignOption, quantity);
-			currentOrderItems.add(cardStyleItem);
+			shoppingCart.addItem(cardStyleItem);
 			maxAmount += quantity;
 
 			System.out.println();

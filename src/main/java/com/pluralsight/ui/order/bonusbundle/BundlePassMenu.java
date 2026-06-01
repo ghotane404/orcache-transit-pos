@@ -4,23 +4,30 @@ import com.pluralsight.model.item.base.TransactionLineItem;
 import com.pluralsight.util.ConsoleFormatter;
 import com.pluralsight.ui.order.transit.pass.RiderTypeMenu;
 import com.pluralsight.ui.order.interfaces.Menu;
+import com.pluralsight.util.ShoppingCart;
 
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BundlePassMenu implements Menu{
 	static ConsoleFormatter consoleFormatter = new ConsoleFormatter();
-	static RiderTypeMenu riderCategoryMenu = new RiderTypeMenu();
 	private static final Scanner scanner = new Scanner(System.in);
 	int WIDTH = 50;
+	private ShoppingCart shoppingCart;
 
 	@Override
 	public String showMenuName() {
 		return "Add Bundle Pass";
 	}
 
+
+	public BundlePassMenu(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
 	@Override
-	public void display(ArrayList<TransactionLineItem> currentOrderItems) {
+	public void display() {
 		System.out.println("WIP");
 		while(true) {
 			consoleFormatter.displayHeader("SELECT BUNDLE PASS", WIDTH);

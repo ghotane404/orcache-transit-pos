@@ -12,15 +12,6 @@ public class ConsoleFormatter {
 	public ConsoleFormatter() {
 	}
 
-//	public void displayHeader(String text, int WIDTH) {
-//		String headerLine = "=".repeat(WIDTH);
-//		String centeredText = " ".repeat(((WIDTH - text.length()) / 2)) + text;
-//
-//		System.out.println();
-//		System.out.println(headerLine);
-//		System.out.println(centeredText);
-//		System.out.println(headerLine);
-//	}
 	public String centeredText(String text, int WIDTH){
 		StringBuilder receipt = new StringBuilder();
 		String centeredText = " ".repeat(((WIDTH - text.length()) / 2)) + text;
@@ -33,9 +24,10 @@ public class ConsoleFormatter {
 		String headerLine = "=".repeat(WIDTH);
 
 		receipt.append("\n");
-		receipt.append(headerLine).append("\n");
-		receipt.append(centeredText(text, WIDTH)).append("\n");
-		receipt.append(headerLine).append("\n");
+		receipt.append(Ansi.CYAN).append(headerLine).append(Ansi.RESET).append("\n");
+		receipt.append(Ansi.CYAN).append(centeredText(text, WIDTH)).append(Ansi.RESET).append("\n");
+		receipt.append(Ansi.CYAN).append(headerLine).append(Ansi.RESET).append("\n");
+
 		System.out.println(receipt);
 	}
 

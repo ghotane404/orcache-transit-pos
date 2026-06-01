@@ -1,22 +1,29 @@
 package com.pluralsight.ui.order.transit.addon;
 
 import com.pluralsight.model.item.FerryPassAddOnItem;
-import com.pluralsight.model.item.base.TransactionLineItem;
 import com.pluralsight.model.enums.FerryPassAddOn;
 import com.pluralsight.model.enums.RiderType;
+import com.pluralsight.util.ShoppingCart;
 import com.pluralsight.util.TransitPricingModel;
 import com.pluralsight.ui.order.transit.feature.AccountFeatureMenu;
 import com.pluralsight.util.ConsoleFormatter;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class FerryPassAddOnMenu {
 	ConsoleFormatter consoleFormatter = new ConsoleFormatter();
 	private static final Scanner scanner = new Scanner(System.in);
 	int WIDTH = 65;
 
-	public void displayFerryPassAddOnMenu(RiderType selectedRiderType,  ArrayList<TransactionLineItem> currentOrderItems) {
+
+	private final ShoppingCart shoppingCart;
+
+	public FerryPassAddOnMenu(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
+
+	public void displayFerryPassAddOnMenu(RiderType selectedRiderType) {
 		while(true) {
 			consoleFormatter.displayHeader("SELECT FERRY ROUTE PASS" , WIDTH);
 			consoleFormatter.displayTypeIdentifier("Rider Type: " + selectedRiderType.getDisplayName(), WIDTH);
@@ -71,8 +78,8 @@ public class FerryPassAddOnMenu {
 				case "4" -> {selectedFerryPassAddOn = FerryPassAddOn.WSF_PORT_TOWNSEND_COUPEVILLE;}
 				case "5" -> {selectedFerryPassAddOn = FerryPassAddOn.WSF_CENTRAL_SOUND;}
 				case "6" -> {
-					AccountFeatureMenu accountFeatureMenu = new AccountFeatureMenu();
-					accountFeatureMenu.displayAccountFeatureMenu(currentOrderItems);
+					AccountFeatureMenu accountFeatureMenu = new AccountFeatureMenu(shoppingCart);
+					accountFeatureMenu.displayAccountFeatureMenu();
 					return;
 				}
 				case "0" -> {
@@ -91,7 +98,7 @@ public class FerryPassAddOnMenu {
 
 			FerryPassAddOnItem ferryPassAddOnItem = new FerryPassAddOnItem(selectedFerryPassAddOn, selectedRiderType,
 					quantity, unitPrice);
-			currentOrderItems.add(ferryPassAddOnItem);
+			shoppingCart.addItem(ferryPassAddOnItem);
 
 			System.out.println();
 			System.out.println("Added:");
@@ -102,8 +109,8 @@ public class FerryPassAddOnMenu {
 			System.out.println("Press ENTER to continue.");
 			scanner.nextLine();
 
-			AccountFeatureMenu accountFeatureMenu = new AccountFeatureMenu();
-			accountFeatureMenu.displayAccountFeatureMenu(currentOrderItems);
+			AccountFeatureMenu accountFeatureMenu = new AccountFeatureMenu(shoppingCart);
+			accountFeatureMenu.displayAccountFeatureMenu();
 
 			return;
 		}

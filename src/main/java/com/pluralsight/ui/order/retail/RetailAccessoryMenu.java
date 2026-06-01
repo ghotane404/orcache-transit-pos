@@ -4,11 +4,10 @@ import com.pluralsight.ui.order.interfaces.Menu;
 import com.pluralsight.model.enums.RetailAccessory;
 import com.pluralsight.model.enums.RetailTier;
 import com.pluralsight.model.item.RetailAccessoryItem;
-import com.pluralsight.model.item.base.TransactionLineItem;
+import com.pluralsight.util.ShoppingCart;
 import com.pluralsight.util.TransitPricingModel;
 import com.pluralsight.util.ConsoleFormatter;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RetailAccessoryMenu implements Menu {
@@ -16,15 +15,20 @@ public class RetailAccessoryMenu implements Menu {
 	private static final Scanner scanner = new Scanner(System.in);
 	int WIDTH = 65;
 
-
 	@Override
 	public String showMenuName() {
 		return "Add Retail Item";
 	}
 
+	private final ShoppingCart shoppingCart;
+
+	public RetailAccessoryMenu(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
 
 	@Override
-	public void display(ArrayList<TransactionLineItem> currentOrderItems) {
+	public void display() {
 		while (true) {
 			consoleFormatter.displayHeader("SELECT RETAIL ACCESSORY", WIDTH);
 			System.out.println("Select an accessory to continue, then choose a tier.");
@@ -57,12 +61,12 @@ public class RetailAccessoryMenu implements Menu {
 				}
 			}
 
-			retailTierPrice(selectedAccessory, currentOrderItems);
+			retailTierPrice(selectedAccessory);
 
 		}
 	}
 
-	public void retailTierPrice(RetailAccessory selectedAccessory, ArrayList<TransactionLineItem> currentOrderItems)  {
+	public void retailTierPrice(RetailAccessory selectedAccessory)  {
 
 		while (true) {
 			consoleFormatter.displayHeader("SELECT RETAIL TIER", WIDTH);
@@ -98,7 +102,7 @@ public class RetailAccessoryMenu implements Menu {
 			double unitPrice = TransitPricingModel.getRetailAccessoryPrice(selectedAccessory, selectedTier);
 			RetailAccessoryItem retailAccessoryItem = new RetailAccessoryItem(selectedAccessory, 1, unitPrice);
 
-			currentOrderItems.add(retailAccessoryItem);
+			shoppingCart.addItem(retailAccessoryItem);
 
 			System.out.println();
 			System.out.println("Added:");

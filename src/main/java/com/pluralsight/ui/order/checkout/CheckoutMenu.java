@@ -3,6 +3,8 @@ package com.pluralsight.ui.order.checkout;
 import com.pluralsight.file.ReceiptFileManager;
 import com.pluralsight.model.item.base.TransactionLineItem;
 import com.pluralsight.ui.order.interfaces.Menu;
+import com.pluralsight.util.Ansi;
+import com.pluralsight.util.ShoppingCart;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,22 +13,30 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class CheckoutMenu implements Menu {
-	private ReceiptFileManager receiptFileManager = new ReceiptFileManager();
-	private Random random = new Random();
-	private Scanner scanner = new Scanner(System.in);
+	private final ReceiptFileManager receiptFileManager = new ReceiptFileManager();
+	private final Random random = new Random();
+	private final Scanner scanner = new Scanner(System.in);
 
 	private final int WIDTH = 65;
 
 
+	private final ShoppingCart shoppingCart;
 
-	public void display(ArrayList<TransactionLineItem> currentOrderItems) {
+	public CheckoutMenu(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
 
-		if (currentOrderItems.isEmpty()) {
-			System.out.println("No items in current order.");
+
+	public void display() {
+
+		if (shoppingCart.isEmpty()) {
+			System.out.println(Ansi.color("No items in current order. Please try again.", Ansi.RED));
+			System.out.println("Press ENTER to continue.");
+			scanner.nextLine();
 			return;
 		}
 
-		String receiptText = createReceiptText(currentOrderItems);
+		String receiptText = createReceiptText(shoppingCart.getCurrentOrderItems());
 
 		System.out.println(receiptText);
 

@@ -2,27 +2,32 @@ package com.pluralsight.ui.order.epurse;
 
 import com.pluralsight.model.item.EPurseItem;
 import com.pluralsight.model.enums.EPurseReloadOption;
-import com.pluralsight.model.item.base.TransactionLineItem;
 import com.pluralsight.ui.order.interfaces.Menu;
+import com.pluralsight.util.Ansi;
+import com.pluralsight.util.ShoppingCart;
 import com.pluralsight.util.TransitPricingModel;
 import com.pluralsight.util.ConsoleFormatter;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class EPurseMenu implements Menu {
 	private final ConsoleFormatter consoleFormatter = new ConsoleFormatter();
 	private static final Scanner scanner = new Scanner(System.in);
 	int WIDTH = 65;
 
-
 	@Override
 	public String showMenuName() {
 		return "Add E-Purse Balance";
 	}
 
+	private ShoppingCart shoppingCart;
+
+	public EPurseMenu(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
 	@Override
-	public void display(ArrayList<TransactionLineItem> currentOrderItems) {
+	public void display() {
 		while (true) {
 			consoleFormatter.displayHeader("ADD E-PURSE BALANCE", WIDTH);
 			System.out.println("1. Add $5.00");
@@ -36,6 +41,7 @@ public class EPurseMenu implements Menu {
 
 			System.out.print("Please select an option: ");
 			String userOption = scanner.nextLine();
+			System.out.println();
 
 			EPurseReloadOption selectedEPpurseOption = null;
 
@@ -49,7 +55,9 @@ public class EPurseMenu implements Menu {
 					return;
 				}
 				default -> {
-					System.out.println("Invalid option.");
+					System.out.println(Ansi.color("Error: Invalid option. Please try again.", Ansi.RED));
+					System.out.println("Press ENTER to continue.");
+					scanner.nextLine();
 					continue;
 				}
 			}
@@ -57,7 +65,7 @@ public class EPurseMenu implements Menu {
 			double unitPrice = TransitPricingModel.getEpurseBalance(selectedEPpurseOption);
 			EPurseItem ePurseItem = new EPurseItem(selectedEPpurseOption, unitPrice);
 
-			currentOrderItems.add(ePurseItem);
+			shoppingCart.addItem(ePurseItem);
 
 			System.out.println();
 			System.out.println("Added:");
@@ -66,11 +74,8 @@ public class EPurseMenu implements Menu {
 
 			System.out.println("Press ENTER to continue.");
 			scanner.nextLine();
-
 			return;
 
 		}
 	}
-
-
 }
