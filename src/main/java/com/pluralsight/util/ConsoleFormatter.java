@@ -1,6 +1,6 @@
 package com.pluralsight.util;
 
-import com.pluralsight.model.item.base.TransactionLineItem;
+import com.pluralsight.model.item.base.CartItem;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,14 +12,14 @@ public class ConsoleFormatter {
 	public ConsoleFormatter() {
 	}
 
-	public String centeredText(String text, int WIDTH){
+	public static String centeredText(String text, int WIDTH){
 		StringBuilder receipt = new StringBuilder();
 		String centeredText = " ".repeat(((WIDTH - text.length()) / 2)) + text;
 		receipt.append(centeredText);
 		return receipt.toString();
 	}
 
-	public void displayHeader(String text, int WIDTH) {
+	public static void displayHeader(String text, int WIDTH) {
 		StringBuilder receipt = new StringBuilder();
 		String headerLine = "=".repeat(WIDTH);
 
@@ -31,7 +31,7 @@ public class ConsoleFormatter {
 		System.out.println(receipt);
 	}
 
-	public void categoryHeader(String text, int WIDTH) {
+	public static void categoryHeader(String text, int WIDTH) {
 		StringBuilder receipt = new StringBuilder();
 		String headerLine = "-".repeat(WIDTH);
 
@@ -43,47 +43,47 @@ public class ConsoleFormatter {
 	}
 
 
-	public void createReceipt(ArrayList<TransactionLineItem> currentOrderItems) {
-		StringBuilder receipt = new StringBuilder();
-		String headerLine = "=".repeat(WIDTH);
-		String divider = "-".repeat(WIDTH);
+//	public void createReceipt(ArrayList<CartItem> currentOrderItems) {
+//		StringBuilder receipt = new StringBuilder();
+//		String headerLine = "=".repeat(WIDTH);
+//		String divider = "-".repeat(WIDTH);
+//
+//		// header
+//		receipt.append(headerLine).append("\n");
+//		receipt.append(centeredText("CHECKOUT SUMMARY", WIDTH)).append("\n");
+//		receipt.append(headerLine).append("\n");
+//
+//		receipt.append("Date: ").append(currentDate()).append("\n");
+//		receipt.append("Time: ").append(currentTime()).append("\n");
+//
+//		double orderTotal = 0;
+//		String lastCategory = ""; // tracks which category section we're currently printing
+//
+//		// checks every item in currentOrderItems that was added
+//		for (CartItem item : currentOrderItems) {
+//			// Prints the category section heading (Catefory: Transit Pass, Card Style, Lime Discount Voucher etc)
+//			if (!item.getLineItemCategory().equals(lastCategory)) {
+//				receipt.append("\n");
+//				receipt.append(item.getLineItemCategory()).append("\n");
+//				receipt.append(divider).append("\n");
+//				lastCategory = item.getLineItemCategory();
+//			}
+//
+//			// Free items are included
+//			if (item.getUnitPrice() == 0) {
+//				receipt.append(String.format("  %-44s %s%n", item.getLineItemName(), "Included"));
+//			}
+//			else {
+//				// all paid items will show: name, quantity, unit price, and total total
+//				receipt.append(String.format("  %-28s Qty: %-4d @ $%-8.2f $%.2f%n",
+//						item.getLineItemName(), item.getQuantity(), item.getUnitPrice(), item.getTotalCartItemPrice()));
+//			}
+//			orderTotal += item.getTotalCartItemPrice();     // adding the cost of item to the total cost
+//		}
+//		System.out.println(receipt);
+//	}
 
-		// header
-		receipt.append(headerLine).append("\n");
-		receipt.append(centeredText("CHECKOUT SUMMARY", WIDTH)).append("\n");
-		receipt.append(headerLine).append("\n");
-
-		receipt.append("Date: ").append(currentDate()).append("\n");
-		receipt.append("Time: ").append(currentTime()).append("\n");
-
-		double orderTotal = 0;
-		String lastCategory = ""; // tracks which category section we're currently printing
-
-		// checks every item in currentOrderItems that was added
-		for (TransactionLineItem item : currentOrderItems) {
-			// Prints the category section heading (Catefory: Transit Pass, Card Style, Lime Discount Voucher etc)
-			if (!item.getLineItemCategory().equals(lastCategory)) {
-				receipt.append("\n");
-				receipt.append(item.getLineItemCategory()).append("\n");
-				receipt.append(divider).append("\n");
-				lastCategory = item.getLineItemCategory();
-			}
-
-			// Free items are included
-			if (item.getUnitPrice() == 0) {
-				receipt.append(String.format("  %-44s %s%n", item.getLineItemName(), "Included"));
-			}
-			else {
-				// all paid items will show: name, quantity, unit price, and total total
-				receipt.append(String.format("  %-28s Qty: %-4d @ $%-8.2f $%.2f%n",
-						item.getLineItemName(), item.getQuantity(), item.getUnitPrice(), item.getTotalPrice()));
-			}
-			orderTotal += item.getTotalPrice();     // adding the cost of item to the total cost
-		}
-		System.out.println(receipt);
-	}
-
-	public void divider(int WIDTH) {
+	public static void divider(int WIDTH) {
 		StringBuilder receipt = new StringBuilder();
 		String divider = "-".repeat(WIDTH);
 
