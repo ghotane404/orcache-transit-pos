@@ -1,25 +1,26 @@
 package com.pluralsight.ui.order.transit;
 
 
+import com.pluralsight.model.cart.TransitCardConfiguration;
 import com.pluralsight.model.option.TransitCard;
 import com.pluralsight.util.Ansi;
 import com.pluralsight.ui.interfaces.MenuScreen;
 import com.pluralsight.model.cart.ShoppingCart;
 import com.pluralsight.util.ConsoleFormatter;
 import com.pluralsight.util.ConsoleSelector;
+import com.pluralsight.util.Navigator;
 
 import java.util.*;
 
 public class TransitCardMenu implements MenuScreen {
 	ArrayList<TransitCard> transitCards;
 	private final ShoppingCart shoppingCart;
-
 	int WIDTH = 50;
 
 	public TransitCardMenu(ShoppingCart shoppingCart) {
 		this.shoppingCart = shoppingCart;
 
-		this.transitCards = new ArrayList<>();
+		transitCards = new ArrayList<>();
 		transitCards.add(new TransitCard("Metro Bus"));
 		transitCards.add(new TransitCard("Link Light Rail"));
 		transitCards.add(new TransitCard("Rapid Ride"));
@@ -40,7 +41,16 @@ public class TransitCardMenu implements MenuScreen {
 				selectorBuilder.addSelection(transitCard.getTransitCardName());
 			}
 
-			// user inptu
+			int userInput = selectorBuilder.build().showSelectionAndGetUserInput();
+
+			if (userInput == 0) return;
+
+			int index = userInput - 1;
+			TransitCard selectedTransitCard = transitCards.get(index);
+			TransitCardConfiguration transitCardConfiguration = new TransitCardConfiguration();
+			transitCardConfiguration.setETransitService(selectedTransitCard);
+
+//		Navigator.goToNextScreen(new RiderTypeMenu(shoppingCart, transitCardConfiguration));
 
 	}
 }

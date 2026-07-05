@@ -1,10 +1,7 @@
 package com.pluralsight.util;
 
-import com.pluralsight.model.item.base.CartItem;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class ConsoleFormatter {
 	int WIDTH = 65;
@@ -27,6 +24,7 @@ public class ConsoleFormatter {
 		receipt.append(Ansi.CYAN).append(headerLine).append(Ansi.RESET).append("\n");
 		receipt.append(Ansi.CYAN).append(centeredText(text, WIDTH)).append(Ansi.RESET).append("\n");
 		receipt.append(Ansi.CYAN).append(headerLine).append(Ansi.RESET).append("\n");
+//		receipt.append(Ansi.CYAN).append(headerLine).append(Ansi.RESET);
 
 		System.out.println(receipt);
 	}
@@ -35,7 +33,6 @@ public class ConsoleFormatter {
 		StringBuilder receipt = new StringBuilder();
 		String headerLine = "-".repeat(WIDTH);
 
-//		receipt.append("\n");
 		receipt.append(headerLine).append("\n");
 		receipt.append(centeredText(text, WIDTH)).append("\n");
 		receipt.append(headerLine);

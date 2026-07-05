@@ -22,7 +22,7 @@ public class TransitCardConfiguration {
 		return eTransitCard;
 	}
 
-	public void getETransitCard(TransitCard eTransitCard) {
+	public void setETransitService(TransitCard eTransitCard) {
 		this.eTransitCard = eTransitCard;
 	}
 
