@@ -9,10 +9,15 @@ public class ConsoleFormatter {
 	public ConsoleFormatter() {
 	}
 
-	public static String centeredText(String text, int WIDTH){
+	public static String centeredText(String text, int WIDTH) {
 		StringBuilder receipt = new StringBuilder();
-		String centeredText = " ".repeat(((WIDTH - text.length()) / 2)) + text;
+		int spaces = (WIDTH - text.length()) / 2;
+
+		if (spaces < 0) spaces = 0;
+
+		String centeredText = " ".repeat(spaces) + text;
 		receipt.append(centeredText);
+
 		return receipt.toString();
 	}
 
@@ -81,13 +86,18 @@ public class ConsoleFormatter {
 //	}
 
 	public static void divider(int WIDTH) {
-		StringBuilder receipt = new StringBuilder();
-		String divider = "-".repeat(WIDTH);
+		StringBuilder formatter = new StringBuilder();
+		String headerLine = "-".repeat(WIDTH);
 
-		receipt.append("\n");
-		receipt.append(divider).append("\n");
-		System.out.println("-".repeat(WIDTH));
-		receipt.append("\n");
+		formatter.append(Ansi.CYAN).append(headerLine).append(Ansi.RESET);
+		System.out.println(formatter);
+	}
+
+	public static void displayRiderTypeHeader(String text, int WIDTH) {
+		StringBuilder formatter = new StringBuilder();
+		formatter.append(Ansi.GREEN).append(centeredText(text, WIDTH)).append(Ansi.RESET);
+		formatter.append(" ".repeat(WIDTH));
+		System.out.println(formatter);
 	}
 
 	public void displayTypeIdentifier(String text, int WIDTH) {
@@ -106,6 +116,18 @@ public class ConsoleFormatter {
 		receipt.append(lineItemCategory).append("\n");
 		receipt.append(divider).append("\n");
 		System.out.println(receipt);
+	}
+
+	public static void spaceBetweenPrints(String text, int WIDTH) {
+		StringBuilder formatter = new StringBuilder();
+		String headerLine = " ".repeat(WIDTH);
+
+		formatter.append("\n");
+		formatter.append(headerLine).append("\n");
+		formatter.append(centeredText(text, WIDTH)).append("\n");
+		formatter.append(headerLine);
+
+		System.out.println(formatter);
 	}
 
 	public String currentDate() {

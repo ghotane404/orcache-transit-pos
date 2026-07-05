@@ -17,6 +17,11 @@ public class TransitCardConfiguration {
 	private final ArrayList<CardDesign> eCardDesigns = new ArrayList<>();
 	private ArrayList<LimeVoucher> eLimeVouchers = new ArrayList<>();
 
+	private int riderTypeQuantity = 1;
+	private int transitAddOnQuantity = 0;
+	private int ferryAddOnQuantity = 0;
+
+
 	// -------------------------- Transit Service --------------------------
 	public TransitCard getETransitService() {
 		return eTransitCard;
@@ -54,13 +59,21 @@ public class TransitCardConfiguration {
 	}
 
 	// -------------------------- Account Benefits --------------------------
-	public ArrayList<AccountBenefit> eAccountBenefits() {
+	public ArrayList<AccountBenefit> getEAccountBenefits() {
 		return eAccountBenefits;
+	}
+
+	public void addAccountBenefit(AccountBenefit accountBenefit) {
+		eAccountBenefits.add(accountBenefit);
 	}
 
 	// -------------------------- Card Designs --------------------------
 	public ArrayList<CardDesign> getECardDesigns() {
 		return eCardDesigns;
+	}
+
+	public void addCardDesign(CardDesign cardDesign) {
+		eCardDesigns.add(cardDesign);
 	}
 
 
@@ -73,5 +86,34 @@ public class TransitCardConfiguration {
 		this.eLimeVouchers = eLimeVouchers;
 	}
 
+	public void addLimeVoucher(LimeVoucher limeVoucher) {
+		eLimeVouchers.add(limeVoucher);
+	}
+
+	// -------------------------- Quantities --------------------------
+
+	public int getRiderTypeQuantity() {
+		return riderTypeQuantity;
+	}
+
+	public void setRiderTypeQuantity(int riderTypeQuantity) {
+		this.riderTypeQuantity = riderTypeQuantity;
+	}
+
+	public int getTransitAddOnQuantity() {
+		return transitAddOnQuantity;
+	}
+
+	public void setTransitAddOnQuantity(int transitAddOnQuantity) {
+		this.transitAddOnQuantity = transitAddOnQuantity;
+	}
+
+	public int getFerryAddOnQuantity() {
+		return ferryAddOnQuantity;
+	}
+
+	public void setFerryAddOnQuantity(int ferryAddOnQuantity) {
+		this.ferryAddOnQuantity = ferryAddOnQuantity;
+	}
 
 }

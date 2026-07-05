@@ -39,6 +39,7 @@ public class AddOn implements ShoppingItem {
 		else if (riderType.getName().trim().equalsIgnoreCase("Youth")) {
 			return youthPrice;
 		}
+
 		return 0.00;        // check later
 	}
 

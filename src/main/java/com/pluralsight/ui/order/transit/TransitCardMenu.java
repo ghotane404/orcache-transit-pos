@@ -50,7 +50,7 @@ public class TransitCardMenu implements MenuScreen {
 			TransitCardConfiguration transitCardConfiguration = new TransitCardConfiguration();
 			transitCardConfiguration.setETransitService(selectedTransitCard);
 
-//		Navigator.goToNextScreen(new RiderTypeMenu(shoppingCart, transitCardConfiguration));
+		Navigator.goToNextScreen(new RiderTypeMenu(shoppingCart, transitCardConfiguration));
 
 	}
 }

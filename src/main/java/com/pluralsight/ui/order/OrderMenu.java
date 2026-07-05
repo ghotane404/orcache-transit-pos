@@ -43,9 +43,7 @@ public class OrderMenu implements MenuScreen {
 
 		int userInput = selectorBuilder.build().showSelectionAndGetUserInput();
 
-		if (userInput == 0) {
-			System.out.println("Returning to Home Menu.");
-		}
+		if (userInput == 0) System.out.println("Returning to Home Menu.");
 
 		int index = userInput - 1;
 		Navigator.goToNextScreen(menuScreenNames.get(index));

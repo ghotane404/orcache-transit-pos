@@ -16,6 +16,12 @@ public class Navigator {
 		nextScreen.displayMenu();
 	}
 
+	public static void goToPreviousScreen(MenuScreen previousScreen) {
+		screenHistory.remove(previousScreen);
+		previousScreen.displayMenu();
+	}
+
+
 
 
 }

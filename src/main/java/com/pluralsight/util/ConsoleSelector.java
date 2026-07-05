@@ -28,7 +28,6 @@ public class ConsoleSelector {
 		var userInput = UserInputHelper.getIntegerInput(0, menuOptions.size());
 
 		return userInput;
-
 	}
 
 	public static class Builder {
